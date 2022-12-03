@@ -2,13 +2,18 @@
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/utils/Context.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 interface IZCDToken {
-    function transfer(address to, uint256 amount) external returns (bool);
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
 } 
 
 // Venidng Machine contract 
-contract VendingMachine is Context {
+contract VendingMachine is Context, Ownable{
 
     IZCDToken zcdToken;
 
@@ -32,12 +37,12 @@ contract VendingMachine is Context {
         return PepsiInStock;
     }
 
-    function chargeCocaColaInStock (uint256 amount) external {
+    function chargeCocaColaInStock (uint256 amount) external onlyOwner{
         unchecked {
             CocaColaInStock += amount;
         }
     }
-    function chargePepsiInStock (uint256 amount) external {
+    function chargePepsiInStock (uint256 amount) external onlyOwner {
         unchecked {
             PepsiInStock += amount;
         }
@@ -45,19 +50,19 @@ contract VendingMachine is Context {
 
     function purchase (Soda soda) external returns (bool) {
         
-        (bool sent) = zcdToken.transfer(payable(address(this)), 1e19);
+        (bool sent) = zcdToken.transferFrom(_msgSender() ,payable(address(this)), 1e18);
         require(sent == true, "you should pay the money");
 
         if (soda == Soda.CocaCola) {
             require(CocaColaInStock >= 1, "vending machine doesnt have enough CocaCola");
             unchecked {
-                CocaColaInStock - 1;
+                CocaColaInStock -= 1;
             }
             
         } else if (soda == Soda.Pepsi) {
             require(PepsiInStock >= 1, "vending machine doesnt have enough Pepsi");
             unchecked {
-                PepsiInStock - 1;
+                PepsiInStock -= 1;
             }
            
         }
