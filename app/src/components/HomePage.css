@@ -9,7 +9,7 @@
     text-align: center;
 }
 button {
-    width: 20%;
+    width: 40%;
     height: 10%;
     
     border: none;
@@ -42,14 +42,14 @@ button:hover {
 .Home-inner {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     margin-top: 2rem;
+    
 }
 img {
-    width: 20%;
-    min-height: 20%;
-    max-height: 20%;
+    min-width: 70%;
+    max-width: 70%;
 }
 .loading-page {
     width: 100%;
@@ -97,7 +97,7 @@ h1::after {
 .footer {
     width: 50%;
     height: 10%;
-    margin-top: 7rem;
+    margin-top: 5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -117,7 +117,7 @@ a {
     color: rgba(234, 74, 71, 1);
     font-weight: bold;
     margin-top: 1rem;
-    width: 50%;
+    width: 90%;
     line-height: 1.5rem;
 }
 
@@ -125,7 +125,7 @@ a {
     color: rgba(36, 88, 144, 1);
     font-weight: bold;
     margin-top: 1rem;
-    width: 50%;
+    max-width: 90%;
     line-height: 1.5rem;
 }
 .charge-btn {

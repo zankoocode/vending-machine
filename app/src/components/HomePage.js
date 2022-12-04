@@ -128,17 +128,20 @@ function HomePage () {
             </div>
             <div className="Home-inner">
             <div className="pepsi">
-                <img src={imagePepsi} className="pepsi-img"/>
+               
                 {
                     isSuccessPurchasePepsi ? 
+                    <>
+                    <img src={imagePepsi} className="pepsi-img"/>
                     <p className="success-message-pepsi">
                          You have successfully bought a Pepsi, have fun
                     </p> 
+                    </>
                     : 
+                    <>
+                     <img src={imagePepsi} className="pepsi-img"/>
                     <p className="in-stock"> Total in stock: {PepsiInStock} </p>
-                }
-                
-                {
+                    {
                     isSuccessApprovePurchasePepsi ? 
                     <>
                     <button onClick={purchasePepsi} className="pepsi-btn">
@@ -154,6 +157,10 @@ function HomePage () {
                     <p> [first approve ZCD]</p>
                     </>
                 }
+                    </>
+                }
+                
+                
                 
                 {
                     account.address !== OWNER_ADDRESS ? "" : 
@@ -165,17 +172,20 @@ function HomePage () {
             </div>
 
             <div className="Coca-cola" >
-                <img src={imageCocaCola} className="coca-cola-img"/>
+                
                 {
-                    isSuccessPurchaseCocaCola ? 
+                    isSuccessPurchaseCocaCola ?
+                    <>
+                    <img src={imageCocaCola} className="coca-cola-img"/>
                     <p className="success-message-cola">
                         You have successfully bought a Cola, have fun
                     </p>
+                    </>
                     :
+                    <>
+                    <img src={imageCocaCola} className="coca-cola-img"/>
                     <p className="in-stock"> Total in stock = {CocaColaInStock}</p>
-                }
-               
-                {
+                    {
                     isSuccessApprovePurchaseCocaCola ?  
                     <>
                     <button onClick={purchaseCocaCola} className="coca-btn">
@@ -191,6 +201,10 @@ function HomePage () {
                     <p> [first approve ZCD]</p>
                     </>
                 }
+                    </>
+                }
+               
+                
                 {
                     account.address !== OWNER_ADDRESS ? "" :
                 <button onClick={chargeCocaColaInStock} disabled={account.address !== OWNER_ADDRESS} className="coca-btn charge-btn">
