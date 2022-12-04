@@ -1,4 +1,4 @@
-export const VENDINGMACHINE_ADDRESS = "0x28A9c2f1499281732D98eD17A5640290b88d61C6";
+export const VENDINGMACHINE_ADDRESS = "0xf3f8A3d820a14C45d4C94b123a5B7ca62bf30BAB";
 export const OWNER_ADDRESS= "0x4C87f0327625D311Ab3f4D1b4e98adF760a2A9be";
 export const VENDINGMACHINE_ABI = [
   {
@@ -39,7 +39,7 @@ export const VENDINGMACHINE_ABI = [
         "type": "uint256"
       }
     ],
-    "name": "chargeCocaColaInStock",
+    "name": "chargeCocaColaInMachine",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -52,14 +52,14 @@ export const VENDINGMACHINE_ABI = [
         "type": "uint256"
       }
     ],
-    "name": "chargePepsiInStock",
+    "name": "chargePepsiInMachine",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "getCocaColaInStock",
+    "name": "getCocaColaInMachine",
     "outputs": [
       {
         "internalType": "uint256",
@@ -72,7 +72,7 @@ export const VENDINGMACHINE_ABI = [
   },
   {
     "inputs": [],
-    "name": "getPepsiInStock",
+    "name": "getPepsiInMachine",
     "outputs": [
       {
         "internalType": "uint256",

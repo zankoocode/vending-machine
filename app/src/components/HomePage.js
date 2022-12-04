@@ -12,50 +12,62 @@ import {AiFillTwitterCircle, AiFillGithub} from 'react-icons/ai';
 function HomePage () {
     "use strict"
 
-    const [CocaColaInStock, setCocaColaInStock] = useState(0);
-    const [PepsiInStock, setPepsiInStock] = useState(0);
+    const [CocaColaInMachine, setCocaColaInMachine] = useState(0);
+    const [PepsiInMachine, setPepsiInMachine] = useState(0);
+    const [ZCDUserBalance, setZCDUserBalance] = useState(0);
+
     const account = useAccount();
+
+    const { refetch: getZCDUserBalance} = useContractRead({
+        address: ZCDTOKEN_ADDRESS,
+        abi: ZCDTOKEN_ABI,
+        functionName: "balanceOf",
+        args: [account.address],
+        onSuccess(data){
+            setZCDUserBalance(parseInt(data._hex))
+        }
+    })
     
-    const { write: chargePepsiInStock, isLoading: isLoadingChargePepsiInStock} = useContractWrite({
+    const { write: chargePepsiInMachine, isLoading: isLoadingChargePepsiInMachine} = useContractWrite({
         address: VENDINGMACHINE_ADDRESS,
         abi: VENDINGMACHINE_ABI,
-        functionName: "chargePepsiInStock",
+        functionName: "chargePepsiInMachine",
         args: [100],
         overrides: {
             gasLimit: 80000
         },
         onSuccess() {
-            getPepsiInStock();
+            getPepsiInMachine();
         }
     })
-    const { write: chargeCocaColaInStock, isLoading: isLoadingChargeCocaColaInStock} = useContractWrite({
+    const { write: chargeCocaColaInMachine, isLoading: isLoadingChargeCocaColaInMachine} = useContractWrite({
         address: VENDINGMACHINE_ADDRESS,
         abi: VENDINGMACHINE_ABI,
-        functionName: "chargeCocaColaInStock",
+        functionName: "chargeCocaColaInMachine",
         args: [100],
         overrides: {
             gasLimit: 80000
         },
         onSuccess(){
-            getCocaColaInStock();
+            getCocaColaInMachine();
         }
     })
 
 
-    const {refetch: getPepsiInStock} = useContractRead({
+    const {refetch: getPepsiInMachine} = useContractRead({
         address: VENDINGMACHINE_ADDRESS,
         abi: VENDINGMACHINE_ABI,
-        functionName: "getPepsiInStock",
+        functionName: "getPepsiInMachine",
         onSuccess(data) {
-            setPepsiInStock(parseInt(data._hex))
+            setPepsiInMachine(parseInt(data._hex))
         }
     })
-    const {refetch: getCocaColaInStock} = useContractRead({
+    const {refetch: getCocaColaInMachine} = useContractRead({
         address: VENDINGMACHINE_ADDRESS,
         abi: VENDINGMACHINE_ABI,
-        functionName: "getCocaColaInStock",
+        functionName: "getCocaColaInMachine",
         onSuccess(data) {
-            setCocaColaInStock(parseInt(data._hex))
+            setCocaColaInMachine(parseInt(data._hex))
             
         }
     })
@@ -66,7 +78,7 @@ function HomePage () {
         address: ZCDTOKEN_ADDRESS,
        abi: ZCDTOKEN_ABI,
        functionName: "approve",
-       args: [VENDINGMACHINE_ADDRESS,"10000000000000000000" ]
+       args: [VENDINGMACHINE_ADDRESS,"1000000000000000000" ]
         
     })
     const {write: approvePurchasePepsi, 
@@ -75,7 +87,7 @@ function HomePage () {
         address: ZCDTOKEN_ADDRESS,
        abi: ZCDTOKEN_ABI,
        functionName: "approve",
-       args: [VENDINGMACHINE_ADDRESS,"10000000000000000000" ]
+       args: [VENDINGMACHINE_ADDRESS,"1000000000000000000" ]
         
     })
     
@@ -90,7 +102,7 @@ function HomePage () {
             gasLimit: 80000
         }, 
         onSuccess() {
-            getPepsiInStock();
+            getPepsiInMachine();
         }
     })
     const { write: purchaseCocaCola,
@@ -104,13 +116,13 @@ function HomePage () {
             gasLimit: 80000
         },
         onSuccess() { 
-            getCocaColaInStock();
+            getCocaColaInMachine();
         }
     })
 
     if (isLoadingApprovePurchasePepsi ||  isLoadingPurchasePepsi ||
           isLoadingApprovePurchaseCocaCola || isLoadingPurchaseCocaCola ||
-          isLoadingChargeCocaColaInStock || isLoadingChargePepsiInStock) {
+          isLoadingChargeCocaColaInMachine || isLoadingChargePepsiInMachine) {
         return  (
             <div className="loading-page">
                 
@@ -140,21 +152,27 @@ function HomePage () {
                     : 
                     <>
                      <img src={imagePepsi} className="pepsi-img"/>
-                    <p className="in-stock"> Total in stock: {PepsiInStock} </p>
+                    <p className="in-stock"> Total in stock: {PepsiInMachine} </p>
                     {
                     isSuccessApprovePurchasePepsi ? 
                     <>
-                    <button onClick={purchasePepsi} className="pepsi-btn">
+                    <button onClick={purchasePepsi} className="pepsi-btn" disabled={ZCDUserBalance <= 1}> 
                         purchase 
                     </button>
                     <p> [now Buy]</p>
                     </>
                     :
                     <>
-                    <button onClick={approvePurchasePepsi} className="pepsi-btn">
+                    <button onClick={approvePurchasePepsi} className="pepsi-btn" disabled={ZCDUserBalance <= 1}>
                         approve
                     </button>
-                    <p> [first approve ZCD]</p>
+                    {
+                        ZCDUserBalance <= 1 ? 
+                        <p> [You dont own any ZCD]</p> 
+                        :
+                        <p> [first approve ZCD]</p>
+                    }
+                    
                     </>
                 }
                     </>
@@ -164,7 +182,7 @@ function HomePage () {
                 
                 {
                     account.address !== OWNER_ADDRESS ? "" : 
-                    <button onClick={chargePepsiInStock} disabled={account.address !== OWNER_ADDRESS} className="pepsi-btn charge-btn" >
+                    <button onClick={chargePepsiInMachine} disabled={account.address !== OWNER_ADDRESS} className="pepsi-btn charge-btn" >
                     charge Pepsi (only Owner)
                      </button>
                 }
@@ -184,21 +202,27 @@ function HomePage () {
                     :
                     <>
                     <img src={imageCocaCola} className="coca-cola-img"/>
-                    <p className="in-stock"> Total in stock = {CocaColaInStock}</p>
+                    <p className="in-stock"> Total in Machine = {CocaColaInMachine}</p>
                     {
                     isSuccessApprovePurchaseCocaCola ?  
                     <>
-                    <button onClick={purchaseCocaCola} className="coca-btn">
+                    <button onClick={purchaseCocaCola} className="coca-btn" disabled={ZCDUserBalance <= 1}>
                       purchase 
                     </button>
                     <p> [now Buy]</p>
                     </>
                     :
                     <>
-                    <button onClick={approvePurchaseCocaCola} className="coca-btn">
+                    <button onClick={approvePurchaseCocaCola} className="coca-btn" disabled={ZCDUserBalance <= 1}>
                       approve 
                     </button>
-                    <p> [first approve ZCD]</p>
+                    {
+                        ZCDUserBalance <= 1 ? 
+                        <p> [You dont own any ZCD]</p> 
+                        :
+                        <p> [first approve ZCD]</p>
+                    }
+                    
                     </>
                 }
                     </>
@@ -207,7 +231,7 @@ function HomePage () {
                 
                 {
                     account.address !== OWNER_ADDRESS ? "" :
-                <button onClick={chargeCocaColaInStock} disabled={account.address !== OWNER_ADDRESS} className="coca-btn charge-btn">
+                <button onClick={chargeCocaColaInMachine} disabled={account.address !== OWNER_ADDRESS} className="coca-btn charge-btn">
                     charge CocaCola (only Owner)
                 </button>   
                 }

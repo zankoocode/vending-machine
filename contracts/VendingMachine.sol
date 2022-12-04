@@ -26,25 +26,25 @@ contract VendingMachine is Context, Ownable{
         Pepsi
     }
 
-    uint256 private CocaColaInStock;
+    uint256 private CocaColaInMachine;
 
-    uint256 private PepsiInStock;
+    uint256 private PepsiInMachine;
 
-    function getCocaColaInStock () public view returns (uint256) {
-        return CocaColaInStock;
+    function getCocaColaInMachine () public view returns (uint256) {
+        return CocaColaInMachine;
     }
-    function getPepsiInStock () public view returns (uint256) {
-        return PepsiInStock;
+    function getPepsiInMachine () public view returns (uint256) {
+        return PepsiInMachine;
     }
 
-    function chargeCocaColaInStock (uint256 amount) external onlyOwner{
+    function chargeCocaColaInMachine (uint256 amount) external onlyOwner{
         unchecked {
-            CocaColaInStock += amount;
+            CocaColaInMachine += amount;
         }
     }
-    function chargePepsiInStock (uint256 amount) external onlyOwner {
+    function chargePepsiInMachine (uint256 amount) external onlyOwner {
         unchecked {
-            PepsiInStock += amount;
+            PepsiInMachine += amount;
         }
     }
 
@@ -54,15 +54,15 @@ contract VendingMachine is Context, Ownable{
         require(sent == true, "you should pay the money");
 
         if (soda == Soda.CocaCola) {
-            require(CocaColaInStock >= 1, "vending machine doesnt have enough CocaCola");
+            require(CocaColaInMachine >= 1, "vending machine doesnt have enough CocaCola");
             unchecked {
-                CocaColaInStock -= 1;
+                CocaColaInMachine -= 1;
             }
             
         } else if (soda == Soda.Pepsi) {
-            require(PepsiInStock >= 1, "vending machine doesnt have enough Pepsi");
+            require(PepsiInMachine >= 1, "vending machine doesnt have enough Pepsi");
             unchecked {
-                PepsiInStock -= 1;
+                PepsiInMachine -= 1;
             }
            
         }
