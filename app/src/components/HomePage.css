@@ -1,0 +1,164 @@
+.Home {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+button {
+    width: 20%;
+    height: 10%;
+    
+    border: none;
+    color: white;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    line-height: 1.2rem;
+}
+
+button:hover {
+    cursor: pointer;
+}
+.pepsi {
+    width: 40%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Coca-cola {
+    width: 40%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Home-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+img {
+    width: 20%;
+    min-height: 20%;
+    max-height: 20%;
+}
+.loading-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+}
+.loading {
+    width: 100%;
+    height: 100%;
+    margin-top: 15rem;
+}
+.coca-btn {
+    background-color: rgba(234, 74, 71, 1);
+}
+.coca-btn:disabled {
+    background-color: rgba(234, 74, 71, 0.5);
+}
+.pepsi-btn {
+    background-color: rgba(36, 88, 144, 1);
+}
+.pepsi-btn:disabled {
+    background-color: rgba(36, 88, 144, 0.5);
+}
+.connect-btn {
+    margin-top: 1rem;
+}
+.in-stock {
+    margin-top: 1rem;
+}
+h1 {
+    width: 50%;
+    font-weight: 500;
+    line-height: 3rem;
+    margin-top: 2rem;
+
+}
+h1::after {
+    content: "\1F37B";
+}
+
+.footer {
+    width: 50%;
+    height: 10%;
+    margin-top: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+a {
+    padding: 0.2rem;
+    
+}
+.twitter-logo {
+    color: rgb(81, 149, 217);
+   
+}
+.github-logo {
+    color: black;
+}
+.success-message-cola {
+    color: rgba(234, 74, 71, 1);
+    font-weight: bold;
+    margin-top: 1rem;
+    width: 50%;
+    line-height: 1.5rem;
+}
+
+.success-message-pepsi {
+    color: rgba(36, 88, 144, 1);
+    font-weight: bold;
+    margin-top: 1rem;
+    width: 50%;
+    line-height: 1.5rem;
+}
+.charge-btn {
+    width: 30%;
+}
+
+@media only screen and (max-width:500px){
+    h1 {
+        font-size: 1.4rem;
+        width: 60%;
+    }
+    button {
+        width: 40%;
+    }
+    img {
+        width: 40%;
+    }
+    p {
+        font-size: 0.8rem;
+    }
+    .Home-inner {
+        margin-top: 5rem;
+    }
+    .footer {
+        margin-top: 5rem;
+    }
+    .success-message-pepsi {
+        width: 100%;
+    }
+    .success-message-cola {
+        width: 100%;
+    }
+    .charge-btn {
+        width: 50%;
+    }
+}
