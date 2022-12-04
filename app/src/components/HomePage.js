@@ -152,7 +152,7 @@ function HomePage () {
                     : 
                     <>
                      <img src={imagePepsi} className="pepsi-img"/>
-                    <p className="in-stock"> Total in stock: {PepsiInMachine} </p>
+                    <p className="in-stock"> Total in Machine: {PepsiInMachine} </p>
                     {
                     isSuccessApprovePurchasePepsi ? 
                     <>
