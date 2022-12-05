@@ -8,6 +8,14 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
 }
+.Home-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 2rem;
+    width: 70%;
+}
 button {
     width: 50%;
     height: 10%;
@@ -25,7 +33,7 @@ button:hover {
     cursor: pointer;
 }
 .pepsi {
-    width: 40%;
+    width: 20%;
     height: 50%;
     display: flex;
     flex-direction: column;
@@ -33,24 +41,18 @@ button:hover {
     align-items: center;
 }
 .Coca-cola {
-    width: 40%;
+    width: 20%;
     height: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.Home-inner {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 2rem;
     
 }
+
 img {
-    min-width: 70%;
-    max-width: 70%;
+    min-width: 120px;
+    max-width: 120px;
 }
 .loading-page {
     width: 100%;
